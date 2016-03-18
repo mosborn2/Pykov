@@ -4,9 +4,11 @@
 import twit_keys
 import tweepy
 import pykov
+import setEnv
 import os
 
-#filename = "bolano.txt"      #ñ
+#setEnv.setupEnv()
+
 filename = os.environ['TEXT_ADDR']
 
 #setup twitter auth stuff

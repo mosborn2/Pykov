@@ -11,10 +11,12 @@ import urllib.request
 
 #generates corpus and TODO generates opening phrases by ref
 def genCorpus (filename, openers):
-    textData = urllib.request.urlopen(filename)
+    data = urllib.request.urlopen(filename)
+    textData = data.readlines()
+    data.close()
     wordVec = []
     for line in textData:
-        wordList = line.strip().split(" ");
+        wordList = line.decode('utf-8').strip().split(" ");
         for w in wordList:
             if w.isupper():
                 wordVec.append(w.capitalize())
