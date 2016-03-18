@@ -1,7 +1,6 @@
 #Python twit bot using a Markov chain text generator
 #author: Morgan Osborn
 
-import twit_keys
 import tweepy
 import pykov
 import setEnv
