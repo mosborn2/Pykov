@@ -6,12 +6,12 @@
 #TODO, fill pairs last array, make sure no empty strings anywhere, format into actual sentence
 
 import random
-import urllib2
+import urllib.request
 
 
 #generates corpus and TODO generates opening phrases by ref
 def genCorpus (filename, openers):
-    textData = urllib2.urlopen(filename)
+    textData = urllib.request.urlopen(filename)
     wordVec = []
     for line in textData:
         wordList = line.strip().split(" ");
