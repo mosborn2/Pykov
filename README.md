@@ -1,4 +1,4 @@
-A Markov chain generator and twitter bot written in Python
+##A Markov chain generator and twitter bot written in Python
 
 Author: Morgan Osborn
 
