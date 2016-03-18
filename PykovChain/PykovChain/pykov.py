@@ -1,6 +1,6 @@
 #Python Markov Chain generator for 2-word order chains
 #author: Morgan Osborn
-#f: takes a txt and builds a json corpus based on a 2-word order Markov chain for use in a node.js program
+
 #currently build map per use, NOTGOOD
 
 #TODO, fill pairs last array, make sure no empty strings anywhere, format into actual sentence
