@@ -1,5 +1,5 @@
 #Python Markov Chain generator for 2-word order chains
-#author Morgan Osborn
+#author: Morgan Osborn
 #f: takes a txt and builds a json corpus based on a 2-word order Markov chain for use in a node.js program
 #currently build map per use, NOTGOOD
 
@@ -45,19 +45,10 @@ def genCorpus (filename, openers):
 #generates a phrase using tweets upto 100 words long, or until punctuation
 def genPhrase( corpus, openers ):
     
-    #while True:
-    #    initKey = random.choice(list(corpus.keys()))
-    #    if len(initKey[0]) > 0 and initKey[0][0].isupper():
-    #        break
     initKey = random.choice(openers)
     first = initKey[0].capitalize()
     second = initKey[1]
     third = initKey[2]
-
-    #initList = corpus[initKey]
-    #first = initKey[0]
-    #second = initKey[1]
-    #third = random.choice(initList)
 
     sentence = []
     sentence.append(first)

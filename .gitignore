@@ -99,3 +99,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+PykovChain/PykovChain/twit_keys.py
+PykovChain/PykovChain/testtxt_small.txt
+PykovChain/PykovChain/testtxt.txt

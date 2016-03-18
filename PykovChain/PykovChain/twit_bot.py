@@ -1,4 +1,4 @@
-#Python twit bot using a Markov chain text generator I wrote
+#Python twit bot using a Markov chain text generator
 #author: Morgan Osborn
 
 import twit_keys
@@ -23,6 +23,8 @@ phrase = ""
 #    phrase = pykov.genPhrase(corpus, openers)
 #    print(phrase + "\n")
 
+
+#gen until an appropriate sized result
 length = 0
 while length > 139 or length < 20:
     phrase = pykov.genPhrase(corpus, openers)
