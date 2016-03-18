@@ -4,8 +4,10 @@
 import twit_keys
 import tweepy
 import pykov
+import schedule
+import time
 
-filename = "testtxt.txt"
+filename = "bolano.txt"      #ñ
 
 #setup twitter auth stuff
 auth = tweepy.OAuthHandler(twit_keys.CONSUMER_KEY, twit_keys.CONSUMER_SECRET)
@@ -13,21 +15,24 @@ auth.set_access_token(twit_keys.ACCESS_TOKEN, twit_keys.ACCESS_SECRET)
 api = tweepy.API(auth)
 
 
-openers = []
-corpus = pykov.genCorpus(filename, openers)
+def doTweet ():
+    openers = []
+    corpus = pykov.genCorpus(filename, openers)
 
-phrase = ""
+    phrase = ""
+    #gen until an appropriately sized result
+    length = 0
+    while length > 139 or length < 20:
+        phrase = pykov.genPhrase(corpus, openers)
+        length = len(phrase)
 
-#gen a few for DEBUG
-#for x in range(0,15):
-#    phrase = pykov.genPhrase(corpus, openers)
-#    print(phrase + "\n")
+    print(phrase)
+    api.update_status(phrase)
 
 
-#gen until an appropriate sized result
-length = 0
-while length > 139 or length < 20:
-    phrase = pykov.genPhrase(corpus, openers)
-    length = len(phrase)
+schedule.every(8).hours.do(doTweet)
 
-api.update_status(phrase)
+doTweet()           #tweet on boot, why not?
+while True:
+    schedule.run_pending()
+    time.sleep(1)
