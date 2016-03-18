@@ -1,0 +1,3 @@
+twit_bot.py: the script that sends the tweets
+
+pykov.py: the markov chain text generator with tweaks to produce more convincing sentences, WIP
