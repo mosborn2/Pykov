@@ -4,14 +4,14 @@
 import twit_keys
 import tweepy
 import pykov
-import schedule
-import time
+import os
 
-filename = "bolano.txt"      #ñ
+#filename = "bolano.txt"      #ñ
+filename = os.environ['TEXT_ADDR']
 
 #setup twitter auth stuff
-auth = tweepy.OAuthHandler(twit_keys.CONSUMER_KEY, twit_keys.CONSUMER_SECRET)
-auth.set_access_token(twit_keys.ACCESS_TOKEN, twit_keys.ACCESS_SECRET)
+auth = tweepy.OAuthHandler(os.environ['CONSUMER_K'], os.environ['CONSUMER_S'])
+auth.set_access_token(os.environ['ACCESS_K'], os.environ['ACCESS_S'])
 api = tweepy.API(auth)
 
 
@@ -30,9 +30,4 @@ def doTweet ():
     api.update_status(phrase)
 
 
-schedule.every(8).hours.do(doTweet)
-
-doTweet()           #tweet on boot, why not?
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+doTweet()
