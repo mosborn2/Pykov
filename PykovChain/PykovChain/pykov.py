@@ -7,24 +7,34 @@
 
 import random
 import urllib.request
+import pickle
+import os.path
 
 
 #generates corpus and TODO generates opening phrases by ref
-def genCorpus (filename, openers):
+def genCorpus (filename, corpusname, openersname):
+
+    #files present, don't run
+    if os.path.isfile(corpusname) and os.path.isfile(openersname):
+        return
+
     data = urllib.request.urlopen(filename)
     textData = data.readlines()
+    with open("fulltext.txt", 'w') as f:
+        for l in textData:
+            f.write(l.decode('utf-8'))
     data.close()
     wordVec = []
     for line in textData:
-        wordList = line.decode('utf-8').strip().split(" ");
+        wordList = line.decode('utf-8').strip().split(" "); #replace("\t", "")
         for w in wordList:
             if w.isupper():
-                wordVec.append(w.capitalize())
+                wordVec.append(w.capitalize().strip())
             else:
-                wordVec.append(w)
+                wordVec.append(w.strip())
 
     corpus = { ("prefix","suffix") : [] }
-
+    openers = []
     starter = False
 
     #establish corpus of empty lists TODO setdefault
@@ -41,12 +51,32 @@ def genCorpus (filename, openers):
         if wordVec[x].endswith(('.','?','!',';') ):
             starter = True
 
+    #serialize and store
+    with open(corpusname, 'wb') as f:
+        pickle.dump(corpus, f)
+    with open(openersname, 'wb') as f:
+        pickle.dump(openers, f)
+    
+    return
 
-    return corpus
+
+def findtxt(phrase):
+    with open('fulltext.txt', 'r') as f:
+        textData = f.read()
+        if textData.find(phrase):
+            return True
+        else:
+            return False
 
 #generates a phrase using tweets upto 100 words long, or until punctuation
-def genPhrase( corpus, openers ):
+def genPhrase( corpusname, openersname ):
     
+    #unpickle objects
+    with open(corpusname, 'rb') as f:
+        corpus = pickle.loads(f.read())
+    with open(openersname, 'rb') as f:
+        openers = pickle.loads(f.read())
+
     initKey = random.choice(openers)
     first = initKey[0].capitalize()
     second = initKey[1]
@@ -68,7 +98,7 @@ def genPhrase( corpus, openers ):
    
     output = ""
     for w in sentence:
-        output += " " + w
+        output += " " + w.strip()
     output = output.lstrip()
 
     #check for matched quotations
@@ -79,4 +109,6 @@ def genPhrase( corpus, openers ):
     if val%2 == 1:
         output += "\""
 
-    return output
+    
+
+    return (output, findtxt(output), len(output))

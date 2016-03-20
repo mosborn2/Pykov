@@ -5,6 +5,7 @@ import tweepy
 import pykov
 import setEnv
 import os
+import botConfig
 
 #setEnv.setupEnv()
 
@@ -17,18 +18,19 @@ api = tweepy.API(auth)
 
 
 def doTweet ():
-    openers = []
-    corpus = pykov.genCorpus(filename, openers)
+    openersname = botConfig.openersName
+    corpusname = botConfig.corpusName
 
-    phrase = ""
+    pykov.genCorpus(filename, corpusname, openersname)
+    
+    phrase = ("", True, 0)
     #gen until an appropriately sized result
-    length = 0
-    while length > 139 or length < 20:
-        phrase = pykov.genPhrase(corpus, openers)
-        length = len(phrase)
+    while phrase[2] > 139 or phrase[2] < botConfig.minLen and phrase[1] == True:     #length should be CONFIG
+        phrase = pykov.genPhrase(corpusname, openersname)
 
-    print(phrase)
-    api.update_status(phrase)
+
+    print(phrase[0])
+    api.update_status(phrase[0])
 
 
 doTweet()

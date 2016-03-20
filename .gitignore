@@ -105,3 +105,9 @@ PykovChain/PykovChain/testtxt.txt
 PykovChain/PykovChain/bolano.txt
 .env 
 .env
+PykovChain/PykovChain/corpus.txt
+PykovChain/PykovChain/fulltext.txt
+PykovChain/PykovChain/openers.txt
+PykovChain/PykovChain/PykovChain.pyproj
+PykovChain/PykovChain.sln
+PykovChain/.vs/PykovChain/v14/.suo
